@@ -23,7 +23,7 @@ export default function Header({ activePage }) {
 
     return (
         <motion.header
-            className="sticky top-0 z-10 backdrop-blur-md bg-[#0f172a]/80 border-b border-indigo-900/30 py-4"
+            className="sticky top-0 z-10 backdrop-blur-md bg-[#21213cce] border-b border-indigo-900/30 py-4"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -34,11 +34,11 @@ export default function Header({ activePage }) {
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                    <span className="font-mono text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 text-transparent bg-clip-text">
+                    <span className="code-text text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 text-transparent bg-clip-text">
                         woweya
                     </span>
                     <span className="text-indigo-400 mx-1">@</span>
-                    <span className="font-mono text-indigo-300">portfolio</span>
+                    <span className="code-text text-indigo-300">portfolio</span>
                 </motion.div>
                 <nav className="hidden md:flex space-x-8">
                     {["Home", "Projects", "Skills", "Contact"].map((item, index) => (

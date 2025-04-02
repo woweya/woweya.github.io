@@ -7,6 +7,8 @@ import FadeIn from "../components/FadeIn"
 import AnimatedText from "../components/AnimatedText"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
+import AnimatedBackground from "../components/AnimatedBackground"
+
 
 export default function SkillsPage() {
   const navigate = useNavigate();
@@ -105,7 +107,9 @@ export default function SkillsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-200">
+    <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91] text-gray-200">
+      <AnimatedBackground />
+
       <Header activePage="Skills" />
 
       <main className="max-w-6xl mx-auto px-4 py-16">
@@ -131,7 +135,7 @@ export default function SkillsPage() {
         {/* Introduzione */}
         <FadeIn direction="up" className="mb-16">
           <motion.div
-            className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
+            className="bg-gradient-to-br backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
             whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.2)" }}
           >
             <motion.div
@@ -148,9 +152,9 @@ export default function SkillsPage() {
             ></motion.div>
 
             <div className="relative">
-              <div className="font-mono text-xs text-indigo-400 mb-2">// Approccio</div>
+              <div className="code-text text-xs text-indigo-400 mb-2">// Approccio</div>
               <h2 className="text-2xl font-bold mb-4 text-white">
-                <span className="font-mono text-indigo-400">const</span> myApproach
+                <span className="code-text text-indigo-400">const</span> myApproach
               </h2>
 
               <div className="grid md:grid-cols-3 gap-6 mt-8">
@@ -236,7 +240,7 @@ export default function SkillsPage() {
             </div>
 
             <motion.div
-              className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 md:p-8 relative overflow-hidden"
+              className="bg-gradient-to-br backdrop-blur-xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 md:p-8 relative overflow-hidden"
               whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.2)" }}
             >
 
@@ -264,7 +268,7 @@ export default function SkillsPage() {
                     >
                       <div className="flex flex-wrap justify-between items-center mb-2">
                         <h4 className="text-lg font-bold text-white">{skill.name}</h4>
-                        <span className="text-indigo-400 font-mono">{skill.level}%</span>
+                        <span className="text-indigo-400 code-text">{skill.level}%</span>
                       </div>
 
                       <div className="w-full h-2 bg-indigo-900/50 rounded-full mb-4 overflow-hidden">
@@ -289,7 +293,7 @@ export default function SkillsPage() {
         {/* Call to action */}
         <FadeIn direction="up" className="mt-16">
           <motion.div
-            className="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 rounded-lg border border-indigo-800/30 p-8 text-center"
+            className="bg-gradient-to-br backdrop-blur-xl  from-indigo-900/30 to-purple-900/30 rounded-lg border border-indigo-800/30 p-8 text-center"
             whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.2)" }}
           >
             <motion.h2
@@ -320,10 +324,11 @@ export default function SkillsPage() {
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
               onClick={() => {
-                navigate("/home", { state: { scrollToContacts: true } });                // Add a small delay to ensure navigation completes before scrolling
-                setTimeout(() => {
-                  document.getElementById('contatti')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
+                // First navigate to the home page
+                window.location.href = "/#/home";
+
+                // Store a flag in sessionStorage (survives page reload)
+                sessionStorage.setItem('scrollToContacts', 'true');
               }}
             >
               Contattami

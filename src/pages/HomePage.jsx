@@ -6,11 +6,28 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FadeIn from "../components/FadeIn"
 import AnimatedText from "../components/AnimatedText"
-import { motion } from "motion/react"  // ERRATO
-import React, { useState } from "react"
+import { motion } from "framer-motion"  // Correct import
+import React, { useState, useEffect } from "react"
+import AnimatedBackground from "../components/AnimatedBackground"
 
 export default function HomePage() {
 
+  useEffect(() => {
+    // Check if we should scroll to contacts section
+    if (sessionStorage.getItem('scrollToContacts') === 'true' ||
+      (location.state && location.state.scrollToContacts)) {
+      // Clear the flag
+      sessionStorage.removeItem('scrollToContacts');
+
+      // Scroll after a delay to ensure the page is rendered
+      setTimeout(() => {
+        const contactsSection = document.getElementById('contatti');
+        if (contactsSection) {
+          contactsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500);
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,7 +50,8 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-200">
+    <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91]  text-gray-200">
+      <AnimatedBackground />
       <Header activePage="Home" />
 
       <main className="max-w-6xl mx-auto px-4 py-16">
@@ -44,7 +62,7 @@ export default function HomePage() {
               Full Stack Developer
             </div>
             <AnimatedText
-              text="Codice elegante, soluzioni creative"
+              text="Codice   elegante, soluzioni   creative"
               className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
             />
             <motion.p
@@ -85,7 +103,7 @@ export default function HomePage() {
           </FadeIn>
           <FadeIn className="md:w-1/2 relative" direction="right" delay={0.3}>
             <motion.div
-              className="w-full overflow-auto h-80 md:h-96 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-lg border border-indigo-800/50 p-6 font-mono text-sm  relative"
+              className="w-full overflow-auto h-80 md:h-96 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-lg border border-indigo-800/50 p-6 code-text text-sm  relative"
               whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.3)" }}
               transition={{ duration: 0.3 }}
             >
@@ -107,7 +125,7 @@ export default function HomePage() {
               </motion.div>
 
               {/* Animated cursor */}
-              <div className="absolute bottom-6 right-6 w-2 h-5 bg-indigo-400 animate-pulse"></div>
+              <div className="absolute bottom-[50px]   right-[260px] w-2 h-5 bg-indigo-400 animate-pulse"></div>
 
 
             </motion.div>
@@ -156,7 +174,7 @@ export default function HomePage() {
             ].map((category, index) => (
               <FadeIn key={index} delay={0.2 * index} direction="up">
                 <motion.div
-                  className="group bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300"
+                  className="group bg-gradient-to-br backdrop-blur-lg from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300"
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 10 }}
                 >
@@ -231,12 +249,12 @@ export default function HomePage() {
             ].map((project, index) => (
               <FadeIn key={index} delay={0.2 * index} direction={index % 2 === 0 ? "left" : "right"}>
                 <motion.div
-                  className="group bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300 relative overflow-hidden"
+                  className="group backdrop-blur-2xl  bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300 relative overflow-hidden"
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 10 }}
                 >
                   {/* Decorative code line numbers */}
-                  <div className="absolute left-3 top-6 bottom-6 flex flex-col justify-between text-xs text-indigo-800 font-mono">
+                  <div className="absolute left-3 top-6 bottom-6 flex flex-col justify-between text-xs text-indigo-800 code-text">
                     {Array.from({ length: 5 }, (_, i) => (
                       <div key={i}>{i + 1}</div>
                     ))}
@@ -248,16 +266,19 @@ export default function HomePage() {
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <span className="font-mono text-indigo-400">const</span> {project.name}
+                      <span className="code-text text-indigo-400">const</span> {project.name}
                     </motion.h3>
 
                     <div className="mb-4 flex flex-wrap gap-2">
                       {project.tech.split(", ").map((tech, i) => (
                         <motion.span
-                          key={i}
-                          className="px-2 py-1 text-xs rounded-full bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ type: "spring", stiffness: 300 }}
+                          key={tech}
+                          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ delay: 0.1 * i, duration: 0.3 }}
+                          whileHover={{ scale: 1.1, y: -2 }}
                         >
                           {tech}
                         </motion.span>
@@ -278,18 +299,6 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Decorative gradient */}
-                  <motion.div
-                    className="absolute  -bottom-20 -right-20 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    animate={{
-                      scale: [1, 1.2, 1]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Number.POSITIVE_INFINITY,
-                      repeatType: "reverse",
-                    }}
-                  ></motion.div>
                 </motion.div>
               </FadeIn>
             ))}
@@ -321,14 +330,14 @@ export default function HomePage() {
             <div className="h-px flex-1 bg-indigo-900/50"></div>
           </div>
 
-          <div className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300">
+          <div className="bg-gradient-to-br backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300">
             <div className="flex flex-col md:flex-row gap-6">
               <div className="md:w-1/4 flex justify-center">
                 <img src="/images/1713343779745.jpeg" className=" h-32" alt="" />
               </div>
               <div className="md:w-3/4">
                 <h3 className="text-xl font-bold mb-2 text-white">
-                  <span className="font-mono text-indigo-400">const</span> masterCertificate
+                  <span className="code-text text-indigo-400">const</span> masterCertificate
                 </h3>
                 <div className="mb-4">
                   <div className="text-lg font-semibold text-white">Master in Fullstack Web Development</div>
@@ -355,13 +364,18 @@ export default function HomePage() {
                     "RESTful APIs",
                     "Git",
                     "CI/CD",
-                  ].map((skill) => (
-                    <span
+                  ].map((skill, i) => (
+                    <motion.span
                       key={skill}
-                      className="px-2 py-1 text-xs rounded-full bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
+                      className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ delay: 0.1 * i, duration: 0.3 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
                     >
                       {skill}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
@@ -388,7 +402,7 @@ export default function HomePage() {
 
           <FadeIn direction="up">
             <motion.div
-              className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
+              className="bg-gradient-to-br backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
               whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.2)" }}
             >
               <motion.div
@@ -420,7 +434,7 @@ export default function HomePage() {
               <div className="relative grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-xl font-bold mb-6 text-white">
-                    <span className="font-mono text-indigo-400">const</span> contactInfo
+                    <span className="code-text text-indigo-400">const</span> contactInfo
                   </h3>
 
                   <div className="space-y-6">
@@ -479,7 +493,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="font-mono text-sm">
+                <div className="code-text text-sm">
                   <div className="text-indigo-300 mb-2">
                     <span className="text-purple-400">function</span>{" "}
                     <span className="text-yellow-300">sendMessage</span>() {"{"}
@@ -688,4 +702,5 @@ function TypewriterEffect() {
     </div>
   )
 }
+
 
