@@ -271,6 +271,7 @@ export default function HomePage() {
                         className="text-xs border-indigo-700 text-indigo-400 hover:bg-indigo-950 inline-flex items-center justify-center rounded-md font-medium transition-colors h-9 px-3 border bg-transparent"
                         whileHover={{ scale: 1.05, x: 5 }}
                         whileTap={{ scale: 0.95 }}
+                        onClick={() => { window.location.href = "/#/projects"}}
                       >
                         Visualizza Dettagli <ChevronRight className="ml-1 h-3 w-3" />
                       </motion.button>
