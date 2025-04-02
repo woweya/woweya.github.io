@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useReducedMotion } from "framer-motion"
 import { useEffect, useState } from "react"
 
 export default function FadeIn({ children, delay = 0, duration = 0.5, className = "", direction = null }) {

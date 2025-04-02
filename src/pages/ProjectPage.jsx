@@ -3,73 +3,61 @@ import { Github, ExternalLink } from "lucide-react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FadeIn from "../components/FadeIn"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
+import TypewriterEffect from "../components/TypewriteEffect"
 export default function ProjectsPage() {
+
+
+
     const projects = [
         {
-            id: "e-commerce",
-            name: "E-Commerce Platform",
-            description: "A full-stack e-commerce solution with payment processing and inventory management.",
+            id: "gestionale",
+            name: "Gestionale Amministrativo",
+            description: "Applicazione gestionale per la gestione aziendale.",
             longDescription:
-                "This project implements a complete e-commerce platform with user authentication, product catalog, shopping cart, checkout process with Stripe integration, and an admin dashboard for inventory management.",
-            tech: ["React", "Node.js", "Express", "MongoDB", "Stripe API", "Redux", "JWT"],
-            github: "https://github.com/woweya/e-commerce-platform",
-            live: "https://e-commerce-platform.vercel.app",
+                "Un'applicazione gestionale per la gestione aziendale, con funzionalità di reportistica, notifica e gestione utenza con integrazione di API esterne. Include un'interfaccia utente reattiva e un sistema di autenticazione sicuro.",
+            video: "videos/Gestionale",
+            tech: ["Symfony", "MySQL", "Docker", "Material Tailwind", "OAuth", "WebSocket API", "RESTful Api"],
+            featured: true,
+        },
+        {
+            id: "e-commerce",
+            name: "Piattaforma E-commerce",
+            description: "Una soluzione e-commerce full-stack con elaborazione pagamenti e gestione inventario.",
+            longDescription:
+                "Questo progetto implementa una piattaforma e-commerce completa con autenticazione utente, catalogo prodotti, carrello acquisti, processo di checkout con integrazione PayPal, e un pannello amministrativo per la gestione dell'inventario.",
+            video: "videos/E-commerce",
+            tech: ["PHP", "Twig", "Symfony", "MySQL", "RestFul API", "Docker", "JWT", 'PayPal API'],
+            featured: true,
+        },
+        {
+            id: "web-radio",
+            name: "Radio WEB-APP",
+            description: "Applicazione di streaming radio con funzionalità social comuni.",
+            longDescription:
+                "Un'applicazione web per lo streaming radiofonico che include funzionalità social come chat in tempo reale, commenti e condivisione di brani. Gli utenti possono ascoltare stazioni radio, interagire con altri ascoltatori e condividere le loro canzoni preferite.",
+            video: "videos/RepeatRadio",
+            tech: ["Laravel", "OpenWeather API", "Geolocation API", "Tailwind CSS", "WebSocket", "MySQL", "Livewire", "Redis"],
             featured: true,
         },
         {
             id: "blog",
-            name: "Personal Blog",
-            description: "A markdown-based blog with comment system and analytics dashboard.",
+            name: "Blog Personale",
+            description: "Una piattaforma per pubblicazione e condivisione di contenuti.",
             longDescription:
-                "A modern blog platform built with React that supports markdown content, code syntax highlighting, comment system with moderation, and a dashboard for content management and analytics.",
-            tech: ["React", "JavaScript", "Prisma", "PostgreSQL", "Tailwind CSS", "Auth.js"],
-            github: "https://github.com/woweya/personal-blog",
-            live: "https://personal-blog.vercel.app",
-            featured: true,
-        },
-        {
-            id: "weather",
-            name: "Weather App",
-            description: "Real-time weather forecasting application with location detection.",
-            longDescription:
-                "A weather application that provides current conditions and forecasts based on user location or search. Features include interactive maps, hourly and daily forecasts, and severe weather alerts.",
-            tech: ["React", "OpenWeather API", "Geolocation API", "Tailwind CSS", "Chart.js"],
-            github: "https://github.com/woweya/weather-app",
-            live: "https://weather-app.vercel.app",
-            featured: true,
-        },
-        {
-            id: "task",
-            name: "Task Manager",
-            description: "Collaborative task management tool with real-time updates.",
-            longDescription:
-                "A productivity application for managing tasks and projects with real-time collaboration features. Includes drag-and-drop kanban boards, task assignments, due dates, and notifications.",
-            tech: ["React", "Firebase", "Redux", "Material UI", "Firebase Auth"],
-            github: "https://github.com/woweya/task-manager",
-            live: "https://task-manager.vercel.app",
+                "Questo è stato il mio primo progetto web creato in gruppo durante il corso di fullstack web developer di Aulab. Una piattaforma di blogging che consente agli utenti di pubblicare e condividere contenuti.",
+            video: "videos/Fantasiosi",
+            tech: ["Laravel", "JavaScript", "MySQL", "Tailwind CSS", "RestFul API", "Livewire"],
             featured: true,
         },
         {
             id: "portfolio",
-            name: "Developer Portfolio",
-            description: "Personal portfolio website with coding-inspired design.",
+            name: "Portfolio Sviluppatore",
+            description: "Sito web portfolio personale con design ispirato alla programmazione.",
             longDescription:
-                "This portfolio website showcases my projects and skills with a design inspired by code editors and development environments. Built with React, Vite and Tailwind CSS.",
-            tech: ["React", "Vite", "Tailwind CSS", "JavaScript"],
-            github: "https://github.com/woweya/portfolio",
-            live: "https://woweya.dev",
-            featured: false,
-        },
-        {
-            id: "chat",
-            name: "Real-time Chat App",
-            description: "Instant messaging application with rooms and direct messages.",
-            longDescription:
-                "A real-time chat application that supports public chat rooms, private messaging, file sharing, and message history. Built with Socket.io for real-time communication.",
-            tech: ["React", "Node.js", "Socket.io", "Express", "MongoDB"],
-            github: "https://github.com/woweya/chat-app",
-            live: "https://chat-app.vercel.app",
+                "Questo sito portfolio mostra i miei progetti e competenze con un design ispirato agli editor di codice e agli ambienti di sviluppo. Costruito con React, Vite e Tailwind CSS.",
+
+            tech: ["React", "Vite", "Tailwind CSS", "JavaScript", "Framer Motion"],
             featured: false,
         },
     ]
@@ -77,7 +65,6 @@ export default function ProjectsPage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-200">
             <Header activePage="Projects" />
-
             <main className="max-w-6xl mx-auto px-4 py-16">
                 {/* Titolo della pagina */}
                 <motion.div
@@ -85,6 +72,7 @@ export default function ProjectsPage() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
+                    viewport={{ once: true, amount: "all" }}  // Attiva con solo 20% visibile
                 >
                     <motion.h1
                         className="text-3xl md:text-4xl font-bold text-center mb-4"
@@ -115,30 +103,6 @@ export default function ProjectsPage() {
                                 whileHover={{ y: -5 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 10 }}
                             >
-                                <motion.div
-                                    className="absolute -top-20 -left-20 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100"
-                                    animate={{
-                                        scale: [1, 1.2, 1],
-                                    }}
-                                    transition={{
-                                        duration: 4,
-                                        repeat: Number.POSITIVE_INFINITY,
-                                        repeatType: "reverse",
-                                    }}
-                                ></motion.div>
-                                <motion.div
-                                    className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-600/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100"
-                                    animate={{
-                                        scale: [1, 1.2, 1],
-                                    }}
-                                    transition={{
-                                        duration: 4,
-                                        repeat: Number.POSITIVE_INFINITY,
-                                        repeatType: "reverse",
-                                        delay: 2,
-                                    }}
-                                ></motion.div>
-
                                 <div className="relative grid md:grid-cols-2 gap-8">
                                     <div>
                                         <div className="font-mono text-xs text-indigo-400 mb-2">// Project {index + 1}</div>
@@ -153,9 +117,8 @@ export default function ProjectsPage() {
                                         <motion.p
                                             className="text-gray-300 mb-6"
                                             initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
+                                            animate={{ opacity: 1 }} // Change from whileInView to animate
                                             transition={{ delay: 0.2, duration: 0.5 }}
-                                            viewport={{ once: true }}
                                         >
                                             {project.longDescription}
                                         </motion.p>
@@ -178,45 +141,6 @@ export default function ProjectsPage() {
                                                 ))}
                                             </div>
                                         </div>
-
-                                        <div className="flex flex-wrap gap-4">
-                                            <motion.a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                            >
-                                                <motion.button
-                                                    className="gap-2 border-indigo-700 text-indigo-400 hover:bg-indigo-950 inline-flex items-center justify-center rounded-md font-medium transition-colors h-10 px-4 py-2 border bg-transparent"
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: 0.3, duration: 0.5 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <Github className="h-4 w-4" />
-                                                    Codice Sorgente
-                                                </motion.button>
-                                            </motion.a>
-                                            <motion.a
-                                                href={project.live}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                            >
-                                                <motion.button
-                                                    className="gap-2 bg-indigo-600 hover:bg-indigo-700 inline-flex items-center justify-center rounded-md font-medium transition-colors h-10 px-4 py-2 text-white"
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: 0.4, duration: 0.5 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <ExternalLink className="h-4 w-4" />
-                                                    Demo Live
-                                                </motion.button>
-                                            </motion.a>
-                                        </div>
                                     </div>
 
                                     <motion.div
@@ -233,78 +157,54 @@ export default function ProjectsPage() {
                                             <div className="ml-4 text-xs text-gray-400">{project.id}.js</div>
                                         </div>
 
-                                        <motion.div
-                                            className="pt-12 px-2"
-                                            initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
-                                            transition={{ delay: 0.3, duration: 0.8 }}
-                                            viewport={{ once: true }}
-                                        >
-                                            <div className="text-indigo-300">
-                                                <span className="text-purple-400">const</span> <span className="text-blue-400">project</span> ={" "}
-                                                {"{"}
-                                            </div>
-                                            <div className="pl-6 mb-4">
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: 0.4, duration: 0.3 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <span className="text-green-400">name</span>:{" "}
-                                                    <span className="text-orange-300">"{project.name}"</span>,
-                                                </motion.div>
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: 0.5, duration: 0.3 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <span className="text-green-400">description</span>:{" "}
-                                                    <span className="text-orange-300">"{project.description}"</span>,
-                                                </motion.div>
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: 0.6, duration: 0.3 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <span className="text-green-400">technologies</span>: [
-                                                    {project.tech.map((t, i) => (
-                                                        <span key={i}>
-                                                            <span className="text-orange-300">"{t}"</span>
-                                                            {i < project.tech.length - 1 ? ", " : ""}
-                                                        </span>
-                                                    ))}
-                                                    ],
-                                                </motion.div>
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: 0.7, duration: 0.3 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <span className="text-green-400">github</span>:{" "}
-                                                    <span className="text-orange-300">"{project.github}"</span>,
-                                                </motion.div>
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: 0.8, duration: 0.3 }}
-                                                    viewport={{ once: true }}
-                                                >
-                                                    <span className="text-green-400">demo</span>:{" "}
-                                                    <span className="text-orange-300">"{project.live}"</span>,
-                                                </motion.div>
-                                            </div>
-                                            <div className="text-indigo-300">{"}"};</div>
-                                        </motion.div>
 
+                                        {project.id === "portfolio" ? (
+                                            <motion.div
+                                                className="h-full pt-10 w-[80%]"
+                                                initial={{ opacity: 0.6 }}
+                                                whileInView={{ opacity: 1 }}
+                                                transition={{ duration: 0.5 }}
+                                                viewport={{ once: true, amount: 0.1 }}
+                                            >
+                                                
+                                                    <TypewriterEffect 
+                                                    text={`
+                                                    <div className="w-full">
+                                                        <h1 className="text-3xl font-bold text-center mb-4">
+                                                        Currenty Looking at my portfolio!
+                                                        </h1>
+                                                    </div>
+                                                    `
+                                                    } />
+                                          
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div
+                                                className="pt-9 px-2"
+                                                initial={{ opacity: 0.6 }}
+                                                whileInView={{ opacity: 1 }}
+                                                transition={{ duration: 0.5 }}
+                                                viewport={{ once: true, amount: 0.1 }}
+                                            >
+                                                <video
+                                                    className="z-[9999] w-full h-full"
+                                                    autoPlay
+                                                    muted
+                                                    playsInline
+                                                    loop
+                                                    preload="auto"
+                                                    src={`${project.video}.mp4`}
+                                                >
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </motion.div>
+                                        )}
                                         {/* Animated cursor */}
                                         <div className="absolute bottom-6 right-6 w-2 h-5 bg-indigo-400 animate-pulse"></div>
                                     </motion.div>
                                 </div>
                             </motion.div>
+
                         </FadeIn>
                     ))}
                 </div>

@@ -1,9 +1,26 @@
 "use client"
 
-import { Link } from "react-router-dom"
-import { motion } from "motion/react"
+import { Link, useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 export default function Header({ activePage }) {
+    const navigate = useNavigate();
+
+    const handleNavigation = (item) => {
+        if (item === "Contact") {
+            navigate("/home", { state: { scrollToContacts: true } });
+            // Increase timeout to give more time for animations to render
+            setTimeout(() => {
+                const contactsSection = document.getElementById("contatti");
+                if (contactsSection) {
+                    contactsSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 800); // Increased from 100ms to 800ms
+        } else {
+            navigate(`/${item.toLowerCase()}`);
+        }
+    };
+
     return (
         <motion.header
             className="sticky top-0 z-10 backdrop-blur-md bg-[#0f172a]/80 border-b border-indigo-900/30 py-4"
@@ -24,21 +41,21 @@ export default function Header({ activePage }) {
                     <span className="font-mono text-indigo-300">portfolio</span>
                 </motion.div>
                 <nav className="hidden md:flex space-x-8">
-                    {["Home", "Projects", "Skills", "About", "Contact"].map((item, index) => (
+                    {["Home", "Projects", "Skills", "Contact"].map((item, index) => (
                         <motion.div
                             key={item}
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 * index, duration: 0.5 }}
                         >
-                            <Link
-                                to={`/${item.toLowerCase()}`}
+                            <motion.button
+                                onClick={() => handleNavigation(item)}
                                 className={`font-medium hover:text-white transition-colors ${item === activePage ? "text-white" : "text-gray-300"}`}
                             >
                                 <motion.span whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300 }}>
                                     {item}
                                 </motion.span>
-                            </Link>
+                            </motion.button>
                         </motion.div>
                     ))}
                 </nav>
@@ -46,4 +63,3 @@ export default function Header({ activePage }) {
         </motion.header>
     )
 }
-

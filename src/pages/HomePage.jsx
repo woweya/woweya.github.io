@@ -6,9 +6,32 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FadeIn from "../components/FadeIn"
 import AnimatedText from "../components/AnimatedText"
-import { motion } from "motion/react"
+import { motion } from "motion/react"  // ERRATO
+import React, { useState } from "react"
 
 export default function HomePage() {
+
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=fabianobuscemi2@gmail.com&su=Contatto dal Portfolio: ${formData.name}&body=Nome: ${formData.name}%0A%0AEmail: ${formData.email}%0A%0AMessaggio: ${formData.message}`;
+    window.open(emailUrl, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-200">
       <Header activePage="Home" />
@@ -49,6 +72,9 @@ export default function HomePage() {
                 </motion.button>
               </Link>
               <motion.button
+                onClick={() => {
+                  document.getElementById('contatti').scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="border border-indigo-500 text-indigo-400 hover:bg-indigo-950 inline-flex items-center justify-center rounded-md font-medium transition-colors h-10 px-4 py-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -83,32 +109,7 @@ export default function HomePage() {
               {/* Animated cursor */}
               <div className="absolute bottom-6 right-6 w-2 h-5 bg-indigo-400 animate-pulse"></div>
 
-              {/* Decorative elements */}
-              <motion.div
-                className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-600/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.3, 0.2],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-              ></motion.div>
-              <motion.div
-                className="absolute -top-20 -left-20 w-40 h-40 bg-purple-600/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.3, 0.2],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                  delay: 2,
-                }}
-              ></motion.div>
+
             </motion.div>
           </FadeIn>
         </div>
@@ -134,13 +135,13 @@ export default function HomePage() {
             {[
               {
                 icon: <Code className="h-6 w-6" />,
-                title: "Frontend",
-                skills: ["React", "JavaScript", "Vite", "Tailwind CSS"],
+                title: "Front-end",
+                skills: ["React", "JavaScript", "Tailwind CSS", "Bootstrap"],
               },
               {
                 icon: <Database className="h-6 w-6" />,
-                title: "Backend",
-                skills: ["Node.js", "Express", "MongoDB", "PostgreSQL"],
+                title: "Back-end",
+                skills: ["Symfony", "Laravel", "MySQL", "restAPI"],
               },
               {
                 icon: <Layers className="h-6 w-6" />,
@@ -150,7 +151,7 @@ export default function HomePage() {
               {
                 icon: <Terminal className="h-6 w-6" />,
                 title: "Tools",
-                skills: ["Git", "Docker", "CI/CD", "AWS"],
+                skills: ["Git", "Docker", "CI/CD", "Postman"],
               },
             ].map((category, index) => (
               <FadeIn key={index} delay={0.2 * index} direction="up">
@@ -174,8 +175,9 @@ export default function HomePage() {
                         className="flex items-center text-gray-300"
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * i, duration: 0.3 }}
                         viewport={{ once: true }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 * i, duration: 0.3 }}
                       >
                         <span className="text-indigo-400 mr-2">•</span> {skill}
                       </motion.li>
@@ -208,23 +210,23 @@ export default function HomePage() {
             {[
               {
                 name: "E-Commerce Platform",
-                tech: "React, Node.js, MongoDB",
+                tech: "Symfony, Docker, MySQL, restAPI, Websockets API",
                 desc: "Una soluzione e-commerce completa con gestione pagamenti e inventario.",
               },
               {
                 name: "Personal Blog",
-                tech: "React, JavaScript, Prisma",
-                desc: "Un blog basato su markdown con sistema di commenti e dashboard analytics.",
+                tech: "Laravel, JavaScript, MySQL, Tailwind CSS",
+                desc: "Un blog basato su funzionalità di pubblicazione, condivisione e gestion dei contenuti.",
               },
               {
-                name: "Weather App",
-                tech: "React, OpenWeather API",
-                desc: "Applicazione di previsioni meteo in tempo reale con rilevamento posizione.",
+                name: "Web Radio",
+                tech: "Laravel, OpenWeather API, Websockets API, JavaScript, Tailwind CSS, MySQL",
+                desc: "Applicazione Web che permetteva lo streaming in live di una stazione radio ed includeva tutte le funzionalità social basate su una community.",
               },
               {
-                name: "Task Manager",
-                tech: "React, Firebase, Redux",
-                desc: "Strumento di gestione attività collaborativo con aggiornamenti in tempo reale.",
+                name: "Gestionale Amministrativo",
+                tech: "Symfony, JavaScript, MySQL, Tailwind CSS, Docker, restAPI, Websockets API",
+                desc: "Applicativo di gestione attività amministrative con aggiornamenti in tempo reale e con varie interfacce user-friendly per una buona gestione di dati.",
               },
             ].map((project, index) => (
               <FadeIn key={index} delay={0.2 * index} direction={index % 2 === 0 ? "left" : "right"}>
@@ -277,9 +279,9 @@ export default function HomePage() {
 
                   {/* Decorative gradient */}
                   <motion.div
-                    className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    className="absolute  -bottom-20 -right-20 w-40 h-40 bg-indigo-600/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                     animate={{
-                      scale: [1, 1.2, 1],
+                      scale: [1, 1.2, 1]
                     }}
                     transition={{
                       duration: 4,
@@ -307,8 +309,67 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="mb-12">
+          <div className="flex items-center mb-8">
+            <div className="h-px flex-1 bg-indigo-900/50"></div>
+            <h2 className="px-6 text-2xl font-bold text-center">
+              <span className="text-indigo-400">&lt;</span>
+              Formazione
+              <span className="text-indigo-400">/&gt;</span>
+            </h2>
+            <div className="h-px flex-1 bg-indigo-900/50"></div>
+          </div>
+
+          <div className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300">
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="md:w-1/4 flex justify-center">
+                <img src="/images/1713343779745.jpeg" className=" h-32" alt="" />
+              </div>
+              <div className="md:w-3/4">
+                <h3 className="text-xl font-bold mb-2 text-white">
+                  <span className="font-mono text-indigo-400">const</span> masterCertificate
+                </h3>
+                <div className="mb-4">
+                  <div className="text-lg font-semibold text-white">Master in Fullstack Web Development</div>
+                  <div className="text-indigo-300">Aulab</div>
+                  <div className="text-gray-400">2023 - 2024</div>
+                </div>
+                <p className="text-gray-300 mb-4">
+                  Ho completato un master specializzato in sviluppo web fullstack con Aulab, acquisendo competenze approfondite
+                  in tecnologie frontend e backend, sviluppo di API, database relazionali e metodologie di lavoro agile
+                  per progetti web moderni.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "HTML&CSS",
+                    "JavaScript",
+                    "PHP",
+                    "Laravel",
+                    "MySQL",
+                    "Architetture Scalabili",
+                    "Performance Optimization",
+                    "UX Research",
+                    "Responsive Design",
+                    "Agile Methodologies",
+                    "RESTful APIs",
+                    "Git",
+                    "CI/CD",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2 py-1 text-xs rounded-full bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
-        <section>
+        <section id="contatti">
           <div className="flex items-center mb-12">
             <div className="h-px flex-1 bg-indigo-900/50"></div>
             <motion.h2
@@ -367,19 +428,22 @@ export default function HomePage() {
                         icon: <Github className="h-5 w-5" />,
                         label: "GitHub",
                         value: "github.com/woweya",
+                        target: "_blank",
                         href: "https://github.com/woweya",
                       },
                       {
                         icon: <Linkedin className="h-5 w-5" />,
                         label: "LinkedIn",
                         value: "linkedin.com/in/woweya",
-                        href: "#",
+                        target: "_blank",
+                        href: "https://www.linkedin.com/in/fabiano-buscemideveloper/",
                       },
                       {
                         icon: <Mail className="h-5 w-5" />,
                         label: "Email",
-                        value: "contact@example.com",
-                        href: "mailto:contact@example.com",
+                        value: "fabianobuscemi1@gmail.com",
+                        target: "_blank",
+                        href: "mailto:fabianobuscemi2@gmail.com?subject=Richiesta%20dal%20Portfolio&body=Ciao%20Fabiano%2C%0A%0AVorrei%20contattarti%20riguardo%20a..."
                       },
                       { icon: <FileText className="h-5 w-5" />, label: "CV", value: "Scarica PDF", href: "#" },
                     ].map((item, index) => (
@@ -419,21 +483,29 @@ export default function HomePage() {
                     <span className="text-purple-400">function</span>{" "}
                     <span className="text-yellow-300">sendMessage</span>() {"{"}
                   </div>
-                  <div className="pl-6 mb-2">
+                  <form onSubmit={handleSubmit} className="pl-6 mb-2">
                     <motion.div
                       className="mb-4"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1, duration: 0.5 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, margin: "10%" }}
                     >
                       <div className="text-green-400 mb-1">// Il tuo nome</div>
                       <motion.div
-                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white"
+                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white flex items-center gap-1"
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        const name = "<span className="text-orange-300">Il tuo nome</span>";
+                        const name = <input
+                          name="name"
+                          type="text"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="bg-transparent border-none focus:outline-none text-orange-300 w-fit"
+                          placeholder="Il tuo nome"
+                          required
+                        />;
                       </motion.div>
                     </motion.div>
 
@@ -446,11 +518,19 @@ export default function HomePage() {
                     >
                       <div className="text-green-400 mb-1">// La tua email</div>
                       <motion.div
-                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white"
+                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white flex items-center gap-1"
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        const email = "<span className="text-orange-300">la-tua-email@example.com</span>";
+                        const email = <input
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="bg-transparent border-none focus:outline-none text-orange-300 w-fit"
+                          placeholder="la-tua-email@example.com"
+                          required
+                        />;
                       </motion.div>
                     </motion.div>
 
@@ -467,7 +547,15 @@ export default function HomePage() {
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        const message = "<span className="text-orange-300">Ciao! Vorrei collaborare con te...</span>";
+                        const message = <textarea
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          className="bg-transparent border-none focus:outline-none text-orange-300 w-[80%]"
+                          placeholder="Ciao! Vorrei collaborare con te.."
+                          rows={3}
+                          required
+                        />;
                       </motion.div>
                     </motion.div>
 
@@ -484,7 +572,7 @@ export default function HomePage() {
                         Invia Messaggio
                       </motion.button>
                     </div>
-                  </div>
+                  </form>
                   <div className="text-indigo-300">{"}"};</div>
                 </div>
               </div>
@@ -512,7 +600,7 @@ function TypewriterEffect() {
     {
       text: (
         <div>
-          <span className="text-green-400">name</span>: <span className="text-orange-300">"Your Name"</span>,
+          <span className="text-green-400">name</span>: <span className="text-orange-300">"Fabiano Buscemi"</span>,
         </div>
       ),
       delay: 0.1,
@@ -528,7 +616,7 @@ function TypewriterEffect() {
     {
       text: (
         <div>
-          <span className="text-green-400">location</span>: <span className="text-orange-300">"Your Location"</span>,
+          <span className="text-green-400">location</span>: <span className="text-orange-300">"Sicilia, Palermo (PA)"</span>,
         </div>
       ),
       delay: 0.3,
@@ -537,8 +625,7 @@ function TypewriterEffect() {
       text: (
         <div>
           <span className="text-green-400">skills</span>: [<span className="text-orange-300">"JavaScript"</span>,{" "}
-          <span className="text-orange-300">"React"</span>, <span className="text-orange-300">"Node.js"</span>,{" "}
-          <span className="text-orange-300">"TypeScript"</span>],
+          <span className="text-orange-300">"React"</span>, <span className="text-orange-300">"PHP"</span>],
         </div>
       ),
       delay: 0.4,
@@ -567,7 +654,7 @@ function TypewriterEffect() {
         <div>
           <span className="text-purple-400">return</span>{" "}
           <span className="text-orange-300">
-            "Hello! I'm a passionate developer focused on creating elegant solutions."
+            "Ciao! Sono uno sviluppatore appassionato e focalizzato in creare soluzioni eleganti e creative!."
           </span>
           ;
         </div>

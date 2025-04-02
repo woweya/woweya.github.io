@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion"  // invece di motion/react
 
 export default function AnimatedText({ text, className = "", delay = 0 }) {
     const words = text.split(" ")
@@ -24,6 +24,7 @@ export default function AnimatedText({ text, className = "", delay = 0 }) {
                 stiffness: 100,
             },
         },
+        
     }
 
     return (
