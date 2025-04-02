@@ -85,7 +85,7 @@ export default function HomePage() {
           </FadeIn>
           <FadeIn className="md:w-1/2 relative" direction="right" delay={0.3}>
             <motion.div
-              className="w-full h-80 md:h-96 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-lg border border-indigo-800/50 p-6 font-mono text-sm overflow-hidden relative"
+              className="w-full overflow-auto h-80 md:h-96 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-lg border border-indigo-800/50 p-6 font-mono text-sm  relative"
               whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.3)" }}
               transition={{ duration: 0.3 }}
             >
