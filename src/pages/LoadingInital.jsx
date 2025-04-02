@@ -100,83 +100,57 @@ export const LoadingInital = () => {
     }, [typingComplete, buildStarted]);
 
     return (
-            <div className="w-full min-h-[95vh] flex justify-center items-center rounded-lg p-4">
-                <div className='innercard-loading border-2 border-[#374151] bg-[#252526] rounded-lg w-[45%] shadow-black/30 shadow-lg'>
-                    <div className=' flex justify-start items-center border-b border-slate-600/40 gap-10 px-4 py-2'>
-                        <h2 className="text-lg text-gray-400 font-semibold">PROBLEMS</h2>
-                        <h2 className="text-lg text-gray-400 font-semibold">OUTPUT</h2>
-                        <h2 className="text-lg text-gray-400 font-semibold">DEBUG CONSOLE</h2>
-                        <h2 className="text-lg text-gray-200 font-semibold border-b-2 border-violet-500 ">TERMINAL</h2>
+        <div className="w-full min-h-screen flex justify-center items-center p-4">
+            <div className='innercard-loading border-2 border-gray-700 bg-gray-900 rounded-lg w-full  sm:w-3/4 lg:w-[35%] shadow-lg'>
+                <div className='flex flex-wrap justify-start items-center border-b border-gray-600 gap-2 sm:gap-4 px-2 sm:px-4 py-2 text-xs sm:text-sm lg:text-base'>
+                    <h2 className="text-gray-400 font-semibold">PROBLEMS</h2>
+                    <h2 className="text-gray-400 font-semibold">OUTPUT</h2>
+                    <h2 className="text-gray-400 font-semibold">DEBUG CONSOLE</h2>
+                    <h2 className="text-gray-200 font-semibold border-b-2 border-violet-500">TERMINAL</h2>
+                </div>
+
+                {isBuildComplete && (
+                    <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-green-400 font-mono overflow-hidden p-4">
+                        <MatrixRainingLetters custom_class="m-0 p-0 z-0 code-rain" />
+                        <div className="text-center flex flex-col sm:flex-row gap-4 justify-center items-center rounded-lg bg-gray-800 p-6 border border-gray-700 w-full max-w-xs sm:max-w-md">
+                            <h3 className="text-xl sm:text-2xl text-white">Build Complete</h3>
+                            <p className="text-sm sm:text-lg animate-pulse duration-500">Launching Application</p>                       
+                         </div>
                     </div>
+                )}
 
-                    {/* Add the transition animation when build is complete */}
-                    {isBuildComplete && (
-                        <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/90 z-10 text-green-400 font-mono overflow-hidden">
-                            <MatrixRainingLetters key="foo-bar" custom_class="m-0 p-0 z-0 code-rain" />
-                            <div className="text-center mb-4 flex gap-4 justify-center items-center bg-[#1c1f1e] p-6 border rounded-lg ">
-                                <div className="left-side float-left">
-                                    <div className="spinner mr-3"></div>
-                                </div>
-                                <div className='right-side float-right'>
-                                    <h3 className="text-4xl mb-2 text-start text-white z-[9999]">Build Complete</h3>
-                                    <p className="text-start text-2xl">Launching Application</p>
-                                </div>
+                <div className='p-4 bg-gray-800 rounded-b-lg text-xs sm:text-base'>
+                    <div className='flex flex-col sm:flex-row justify-between items-center gap-2'>
+                        <div className="w-full">
+                            <div>
+                                <span className='text-gray-400'>woweya@github-portfolio: <span className='text-white'>{text}</span></span>
+                                <span className={`text-violet-500 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
                             </div>
-                        </div>
-                    )}
-
-                    <div className='p-4 bg-[#1E1E1E] rounded-b-lg'>
-                        <div className='flex justify-between items-start gap-2'>
-                            <div className="w-full">
-                                <div>
-                                    <span className='text-2xl text-gray-400'>woweya@github-portfolio: <span className='text-white'>{text}</span></span>
-                                    <span className={`text-2xl text-violet-500 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
-                                </div>
-
-                                {buildStarted && (
-                                    <div className="mt-4 font-mono text-sm text-green-400">
-                                        {buildOutput.map((line, index) => (
-                                            <div key={index} className="whitespace-pre">
-                                                {line}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            {pressedEnter && !buildStarted && (
-                                <div className='flex flex-col'>
-                                    <div className='flex justify-start items-start' style={{
-                                        position: "relative",
-                                        width: "100px",
-                                    }}>
-                                        <button
-                                            onClick={startBuild}
-                                            style={{
-                                                padding: "0.3rem 0.6rem",
-                                                borderRadius: "4px",
-                                                width: "100%",
-                                                border: "1px solid #ccc",
-                                                backgroundColor: "#f9f9f9",
-                                                fontFamily: "monospace",
-                                                fontSize: "0.9rem",
-                                                cursor: "pointer",
-                                                color: "black"
-                                            }}
-                                        >
-                                            <span className='flex justify-center items-center gap-2'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-                                            </svg>
-                                                Enter
-                                            </span>
-                                        </button>
-                                    </div>
+                            {buildStarted && (
+                                <div className="mt-4 font-mono text-xs sm:text-sm text-green-400">
+                                    {buildOutput.map((line, index) => (
+                                        <div key={index} className="whitespace-pre">{line}</div>
+                                    ))}
                                 </div>
                             )}
                         </div>
+
+                        {pressedEnter && !buildStarted && (
+                            <button
+                                onClick={startBuild}
+                                className="p-2 animate-pulse flex justify-center items-center gap-1 duration-1000 border rounded bg-gray-100 text-black font-mono lg:w-[30%] text-xs sm:text-sm hover:bg-gray-200 w-[50%]"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+                                </svg>
+                            
+                                Enter
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
+        </div>
     )
 }
 
