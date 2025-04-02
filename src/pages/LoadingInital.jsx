@@ -80,7 +80,7 @@ export const LoadingInital = () => {
                 setIsBuildComplete(true);
                 // After build completes, show transition animation before redirecting
                 setTimeout(() => {
-                    window.location.href = '/home';
+                    window.location.href = '/#/home';  // Aggiungi un # prima di /home
                 }, 2500); // Increased delay to show animation
             }
         }, 200);

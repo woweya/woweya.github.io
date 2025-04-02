@@ -1,5 +1,6 @@
 {
   "name": "woweya-portfolio",
+  "homepage": "https://woweya.github.io/woweya.github.io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,10 +8,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "framer-motion": "^12.6.2",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.486.0",
     "matrix-rain": "^2.0.6",
     "motion": "^12.6.2",
