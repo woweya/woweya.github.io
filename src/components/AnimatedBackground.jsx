@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-export default function AnimatedBackground() {
+//Utilizziamo Memo per ottimizzare le prestazioni e ridurre i rendering non necessari come il background
+export default memo(function AnimatedBackground (){
     const elements = 12; // Number of floating elements
 
     return (
@@ -95,4 +97,4 @@ export default function AnimatedBackground() {
             ))}
         </div>
     );
-}
+});

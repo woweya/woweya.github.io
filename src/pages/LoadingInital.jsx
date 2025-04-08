@@ -127,7 +127,7 @@ export const LoadingInital = () => {
                                 <span className={`text-violet-500 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
                             </div>
                             {buildStarted && (
-                                <div className="mt-4 code-text text-xs sm:text-sm text-green-400">
+                                <div className="mt-4 code-text text-xs sm:text-sm text-green-400 overflow-x-auto">
                                     {buildOutput.map((line, index) => (
                                         <div key={index} className="whitespace-pre">{line}</div>
                                     ))}

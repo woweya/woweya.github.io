@@ -9,6 +9,7 @@ import AnimatedText from "../components/AnimatedText"
 import { motion } from "framer-motion"  // Correct import
 import React, { useState, useEffect } from "react"
 import AnimatedBackground from "../components/AnimatedBackground"
+import ContactForm from "../components/ContactForm"
 
 export default function HomePage() {
 
@@ -28,33 +29,12 @@ export default function HomePage() {
       }, 500);
     }
   }, []);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const emailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=fabianobuscemi2@gmail.com&su=Contatto dal Portfolio: ${formData.name}&body=Nome: ${formData.name}%0A%0AEmail: ${formData.email}%0A%0AMessaggio: ${formData.message}`;
-    window.open(emailUrl, "_blank");
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91]  text-gray-200">
       <AnimatedBackground />
       <Header activePage="Home" />
 
-      <main className="max-w-6xl mx-auto px-4 py-16">
+      <main className="max-w-6xl mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-24">
           <FadeIn className="md:w-1/2" direction="left">
@@ -63,7 +43,7 @@ export default function HomePage() {
             </div>
             <AnimatedText
               text="Codice   elegante, soluzioni   creative"
-              className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
+              className="text-4xl md:text-5xl header-text font-bold mb-6 leading-tight"
             />
             <motion.p
               className="text-gray-300 text-lg mb-8 leading-relaxed"
@@ -402,7 +382,7 @@ export default function HomePage() {
 
           <FadeIn direction="up">
             <motion.div
-              className="bg-gradient-to-br backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
+              className="bg-gradient-to-br contactInfo-container backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-8 relative overflow-hidden"
               whileHover={{ boxShadow: "0 0 25px rgba(99, 102, 241, 0.2)" }}
             >
               <motion.div
@@ -432,7 +412,7 @@ export default function HomePage() {
               ></motion.div>
 
               <div className="relative grid md:grid-cols-2 gap-8">
-                <div>
+                <div className="conactInfo">
                   <h3 className="text-xl font-bold mb-6 text-white">
                     <span className="code-text text-indigo-400">const</span> contactInfo
                   </h3>
@@ -493,101 +473,12 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="code-text text-sm">
+                <div className="code-text form-contact text-sm">
                   <div className="text-indigo-300 mb-2">
                     <span className="text-purple-400">function</span>{" "}
                     <span className="text-yellow-300">sendMessage</span>() {"{"}
                   </div>
-                  <form onSubmit={handleSubmit} className="pl-6 mb-2">
-                    <motion.div
-                      className="mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1, duration: 0.5 }}
-                      viewport={{ once: true, margin: "10%" }}
-                    >
-                      <div className="text-green-400 mb-1">// Il tuo nome</div>
-                      <motion.div
-                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white flex items-center gap-1"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        const name = <input
-                          name="name"
-                          type="text"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="bg-transparent border-none focus:outline-none text-orange-300 w-fit"
-                          placeholder="Il tuo nome"
-                          required
-                        />;
-                      </motion.div>
-                    </motion.div>
-
-                    <motion.div
-                      className="mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="text-green-400 mb-1">// La tua email</div>
-                      <motion.div
-                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white flex items-center gap-1"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        const email = <input
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="bg-transparent border-none focus:outline-none text-orange-300 w-fit"
-                          placeholder="la-tua-email@example.com"
-                          required
-                        />;
-                      </motion.div>
-                    </motion.div>
-
-                    <motion.div
-                      className="mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="text-green-400 mb-1">// Il tuo messaggio</div>
-                      <motion.div
-                        className="bg-indigo-900/30 border border-indigo-800/50 rounded p-2 text-white"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        const message = <textarea
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          className="bg-transparent border-none focus:outline-none text-orange-300 w-[80%]"
-                          placeholder="Ciao! Vorrei collaborare con te.."
-                          rows={3}
-                          required
-                        />;
-                      </motion.div>
-                    </motion.div>
-
-                    <div className="flex justify-end">
-                      <motion.button
-                        className="bg-indigo-600 hover:bg-indigo-700 inline-flex items-center justify-center rounded-md font-medium transition-colors h-10 px-4 py-2 text-white"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                        viewport={{ once: true }}
-                      >
-                        Invia Messaggio
-                      </motion.button>
-                    </div>
-                  </form>
+                  <ContactForm />
                   <div className="text-indigo-300">{"}"};</div>
                 </div>
               </div>
