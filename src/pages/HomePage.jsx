@@ -43,7 +43,7 @@ export default function HomePage() {
             </div>
             <AnimatedText
               text="Codice   elegante, soluzioni   creative"
-              className="text-4xl md:text-5xl header-text font-bold mb-6 leading-tight"
+              className="text-4xl header-text font-bold mb-6 leading-tight"
             />
             <motion.p
               className="text-gray-300 text-lg mb-8 leading-relaxed"

@@ -141,9 +141,8 @@ body {
 
 @media (min-width: 320px) and (max-width: 645px) {
 
-.header-text>span{
-  display: inline;
-  word-break: break-all;
+.header-text{
+  font-size: 2rem!important;
 }
 .innercard-loading {
   width: 100%;
