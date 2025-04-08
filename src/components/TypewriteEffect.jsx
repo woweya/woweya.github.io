@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const TypewriterEffect = ({ text }) => {
+    const elementRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [displayedText, setDisplayedText] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     // Normalizza l'indentazione: rimuove lo spazio in eccesso a sinistra
     const normalizeIndentation = (str) => {
         const lines = str.split("\n");
@@ -19,45 +24,42 @@ const TypewriterEffect = ({ text }) => {
 
     const cleanText = normalizeIndentation(text.trimEnd()); // Rimuove solo gli spazi finali
 
-    const [displayedText, setDisplayedText] = useState('');
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
-    const componentRef = useRef(null);
-
-    // Set up Intersection Observer to detect when component is visible
+    // Set up intersection observer to detect when component is in viewport
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                setIsVisible(entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    // Once visible, no need to keep observing
+                    observer.disconnect();
+                }
             },
-            { threshold: 0.1 } // Trigger when at least 10% of component is visible
+            { threshold: 0.1 } // Trigger when at least 10% of the element is visible
         );
 
-        if (componentRef.current) {
-            observer.observe(componentRef.current);
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
         }
 
-        return () => {
-            if (componentRef.current) {
-                observer.unobserve(componentRef.current);
-            }
-        };
+        return () => observer.disconnect();
     }, []);
 
-    // Only start typing when component is visible
+    // Only start typing effect when element is visible
     useEffect(() => {
-        if (!isVisible || currentIndex >= cleanText.length) return;
+        if (!isVisible) return; // Skip if not yet visible
 
-        const timeout = setTimeout(() => {
-            setDisplayedText(prev => prev + cleanText[currentIndex]);
-            setCurrentIndex(currentIndex + 1);
-        }, 30); // Velocità digitazione
+        if (currentIndex < cleanText.length) {
+            const timeout = setTimeout(() => {
+                setDisplayedText(prev => prev + cleanText[currentIndex]);
+                setCurrentIndex(currentIndex + 1);
+            }, 30); // Velocità digitazione
 
-        return () => clearTimeout(timeout);
+            return () => clearTimeout(timeout);
+        }
     }, [currentIndex, cleanText, isVisible]);
 
     return (
-        <pre ref={componentRef} className="font-mono m-0 p-0 whitespace-pre">
+        <pre ref={elementRef} className="code-text m-0 p-0 whitespace-pre">
             {displayedText}
             <span className="animate-pulse">|</span>
         </pre>

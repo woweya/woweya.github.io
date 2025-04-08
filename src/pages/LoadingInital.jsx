@@ -101,7 +101,7 @@ export const LoadingInital = () => {
 
     return (
         <div className="w-full min-h-screen flex justify-center items-center p-4">
-            <div className='innercard-loading border-2 border-gray-700 bg-gray-900 rounded-lg w-full  sm:w-3/4 lg:w-[35%] shadow-lg'>
+            <div className='innercard-loading border-2 border-gray-700 bg-gray-900 rounded-lg w-[50%] shadow-lg'>
                 <div className='flex flex-wrap justify-start items-center border-b border-gray-600 gap-2 sm:gap-4 px-2 sm:px-4 py-2 text-xs sm:text-sm lg:text-base'>
                     <h2 className="text-gray-400 font-semibold">PROBLEMS</h2>
                     <h2 className="text-gray-400 font-semibold">OUTPUT</h2>
@@ -110,7 +110,7 @@ export const LoadingInital = () => {
                 </div>
 
                 {isBuildComplete && (
-                    <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-green-400 font-mono overflow-hidden p-4">
+                    <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/90 text-green-400 code-text overflow-hidden p-4">
                         <MatrixRainingLetters custom_class="m-0 p-0 z-0 code-rain" />
                         <div className="text-center flex flex-col sm:flex-row gap-4 justify-center items-center rounded-lg bg-gray-800 p-6 border border-gray-700 w-full max-w-xs sm:max-w-md">
                             <h3 className="text-xl sm:text-2xl text-white">Build Complete</h3>
@@ -127,7 +127,7 @@ export const LoadingInital = () => {
                                 <span className={`text-violet-500 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
                             </div>
                             {buildStarted && (
-                                <div className="mt-4 font-mono text-xs sm:text-sm text-green-400">
+                                <div className="mt-4 code-text text-xs sm:text-sm text-green-400">
                                     {buildOutput.map((line, index) => (
                                         <div key={index} className="whitespace-pre">{line}</div>
                                     ))}
@@ -138,7 +138,7 @@ export const LoadingInital = () => {
                         {pressedEnter && !buildStarted && (
                             <button
                                 onClick={startBuild}
-                                className="p-2 animate-pulse flex justify-center items-center gap-1 duration-1000 border rounded bg-gray-100 text-black font-mono lg:w-[30%] text-xs sm:text-sm hover:bg-gray-200 w-[50%]"
+                                className="p-2 animate-pulse flex justify-center items-center gap-1 duration-1000 border rounded bg-gray-100 text-black code-text lg:w-[30%] text-xs sm:text-sm hover:bg-gray-200 w-[50%]"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />

@@ -5,7 +5,7 @@ import { motion } from "motion/react"
 export default function Footer() {
     return (
         <motion.footer
-            className="bg-[#0f172a] border-t border-indigo-900/30 py-8 mt-24"
+            className="bg-[#21213cce] border-t border-indigo-900/30 py-8 mt-24"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -13,7 +13,7 @@ export default function Footer() {
         >
             <div className="max-w-6xl mx-auto px-4 text-center">
                 <motion.div
-                    className="mb-4 font-mono text-sm text-indigo-400"
+                    className="mb-4 code-text text-sm text-indigo-400"
                     initial={{ y: 20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}

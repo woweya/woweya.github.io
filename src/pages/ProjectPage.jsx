@@ -5,8 +5,10 @@ import Footer from "../components/Footer"
 import FadeIn from "../components/FadeIn"
 import { motion } from "framer-motion"
 import TypewriterEffect from "../components/TypewriteEffect"
+import AnimatedBackground from "../components/AnimatedBackground"
 export default function ProjectsPage() {
 
+    
 
 
     const projects = [
@@ -37,7 +39,7 @@ export default function ProjectsPage() {
             longDescription:
                 "Un'applicazione web per lo streaming radiofonico che include funzionalità social come chat in tempo reale, commenti e condivisione di brani. Gli utenti possono ascoltare stazioni radio, interagire con altri ascoltatori e condividere le loro canzoni preferite.",
             video: "videos/RepeatRadio",
-            tech: ["Laravel", "OpenWeather API", "Geolocation API", "Tailwind CSS", "WebSocket", "MySQL", "Livewire", "Redis"],
+            tech: ["Laravel", "OpenWeather API", "Geolocation API", "Tailwind CSS", "WebSocket", "MySQL", "Livewire", "RestFul API"],
             featured: true,
         },
         {
@@ -63,7 +65,9 @@ export default function ProjectsPage() {
     ]
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-200">
+        <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91] text-gray-200">
+            <AnimatedBackground />
+
             <Header activePage="Projects" />
             <main className="max-w-6xl mx-auto px-4 py-16">
                 {/* Titolo della pagina */}
@@ -99,41 +103,58 @@ export default function ProjectsPage() {
                     {projects.map((project, index) => (
                         <FadeIn key={project.id} delay={0.2 * index} direction={index % 2 === 0 ? "left" : "right"}>
                             <motion.div
-                                className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 md:p-8 relative overflow-hidden group"
+                                className="bg-gradient-to-br backdrop-blur-lg hover:cursor-pointer from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 md:p-8 relative overflow-hidden group"
                                 whileHover={{ y: -5 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 10 }}
                             >
+                                
                                 <div className="relative grid md:grid-cols-2 gap-8">
                                     <div>
-                                        <div className="font-mono text-xs text-indigo-400 mb-2">// Project {index + 1}</div>
+                                        <div className="code-text text-xs text-indigo-400 mb-2">// Project {index + 1}</div>
                                         <motion.h2
                                             className="text-2xl font-bold mb-4 text-white"
                                             whileHover={{ x: 5 }}
                                             transition={{ type: "spring", stiffness: 300 }}
                                         >
-                                            <span className="font-mono text-indigo-400">const</span> {project.name}
+                                            <span className="code-text text-indigo-400">const</span> {project.name}
                                         </motion.h2>
 
                                         <motion.p
                                             className="text-gray-300 mb-6"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }} // Change from whileInView to animate
-                                            transition={{ delay: 0.2, duration: 0.5 }}
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{
+                                                delay: 0.2,
+                                                duration: 0.5,
+                                                type: "spring",
+                                                stiffness: 100,
+                                                damping: 12
+                                            }}
                                         >
                                             {project.longDescription}
                                         </motion.p>
 
                                         <div className="mb-6">
-                                            <div className="font-mono text-indigo-400 mb-2">// Tech Stack</div>
+                                            <div className="code-text text-indigo-400 mb-2">// Tech Stack</div>
                                             <div className="flex flex-wrap gap-2">
                                                 {project.tech.map((tech, i) => (
                                                     <motion.span
                                                         key={tech}
                                                         className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-indigo-900/50 text-indigo-300 border border-indigo-800/50"
                                                         initial={{ opacity: 0, scale: 0.8 }}
-                                                        whileInView={{ opacity: 1, scale: 1 }}
-                                                        transition={{ delay: 0.05 * i, duration: 0.3 }}
-                                                        viewport={{ once: true }}
+                                                        {...(index === 0
+                                                            ? {
+                                                                // First project: animate immediately
+                                                                animate: { opacity: 1, scale: 1 },
+                                                                transition: { delay: 0.1 * i, duration: 0.3 }
+                                                            }
+                                                            : {
+                                                                // Other projects: animate on scroll
+                                                                whileInView: { opacity: 1, scale: 1 },
+                                                                viewport: { once: true, margin: "-50px" },
+                                                                transition: { delay: 0.1 * i, duration: 0.3 }
+                                                            }
+                                                        )}
                                                         whileHover={{ scale: 1.1, y: -2 }}
                                                     >
                                                         {tech}
@@ -144,7 +165,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <motion.div
-                                        className="bg-[#0f172a]/50 rounded-lg border border-indigo-800/30 p-4 font-mono text-sm overflow-hidden relative"
+                                        className="bg-[#0f172a]/50 rounded-lg border border-indigo-800/30 p-4 code-text text-sm overflow-hidden relative"
                                         whileHover={{ boxShadow: "0 0 15px rgba(99, 102, 241, 0.2)" }}
                                         transition={{ duration: 0.3 }}
                                     >
