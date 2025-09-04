@@ -6,10 +6,12 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import FadeIn from "../components/FadeIn"
 import AnimatedText from "../components/AnimatedText"
-import { motion } from "framer-motion"  // Correct import
+import { motion } from "framer-motion"
 import React, { useState, useEffect } from "react"
 import AnimatedBackground from "../components/AnimatedBackground"
 import ContactForm from "../components/ContactForm"
+import {Helmet} from "react-helmet";
+
 
 export default function HomePage() {
 
@@ -31,6 +33,12 @@ export default function HomePage() {
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91]  text-gray-200">
+      <Helmet>
+        <title>Fabiano Buscemi - Portfolio | Full Stack Developer</title>
+        <meta name="description" content="Portfolio di Fabiano Buscemi: progetti in Symfony, Laravel, React, MySQL e altro. Scopri competenze e contattami." />
+        <meta property="og:title" content="Fabiano Buscemi - Portfolio" />
+        <meta property="og:description" content="Progetti e competenze di uno sviluppatore full stack." />
+      </Helmet>
       <AnimatedBackground />
       <Header activePage="Home" />
 
@@ -313,7 +321,7 @@ export default function HomePage() {
           <div className="bg-gradient-to-br backdrop-blur-2xl from-indigo-900/20 to-purple-900/20 rounded-lg border border-indigo-800/30 p-6 hover:border-indigo-600/50 transition-all duration-300">
             <div className="flex flex-col md:flex-row gap-6">
               <div className="md:w-1/4 flex justify-center">
-                <img src="/images/1713343779745.jpeg" className=" h-32" alt="" />
+                <img src="/images/1713343779745.jpeg" className=" h-32" alt="Certificato Aulab - Master in Fullstack Web Development" />
               </div>
               <div className="md:w-3/4">
                 <h3 className="text-xl font-bold mb-2 text-white">
