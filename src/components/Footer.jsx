@@ -31,6 +31,19 @@ export default function Footer() {
                 >
                     Realizzato con React, Vite e Tailwind CSS
                 </motion.div>
+                {/* Link interni espliciti per migliorare crawl e internal linking */}
+                <motion.nav
+                  className="mt-4 flex items-center justify-center gap-6 text-sm"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <a href="/#/home" className="text-indigo-300 hover:text-indigo-200">Home</a>
+                  <a href="/#/projects" className="text-indigo-300 hover:text-indigo-200">Progetti</a>
+                  <a href="/#/skills" className="text-indigo-300 hover:text-indigo-200">Competenze</a>
+                  <a href="/#/home#contatti" className="text-indigo-300 hover:text-indigo-200">Contatti</a>
+                </motion.nav>
             </div>
         </motion.footer>
     )

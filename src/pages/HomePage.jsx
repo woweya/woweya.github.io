@@ -34,9 +34,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f172a8f] to-[#1e293b91]  text-gray-200">
       <Helmet>
-        <title>Fabiano Buscemi - Portfolio | Full Stack Developer</title>
-        <meta name="description" content="Portfolio di Fabiano Buscemi: progetti in Symfony, Laravel, React, MySQL e altro. Scopri competenze e contattami." />
-        <meta property="og:title" content="Fabiano Buscemi - Portfolio" />
+        <title>Fabiano - Portfolio | Full Stack Developer</title>
+        <meta name="description" content="Fabiano - Portfolio: progetti e competenze in Symfony, Laravel, React, MySQL e Docker. Scopri il mio lavoro e contattami." />
+        <meta property="og:title" content="Fabiano - Portfolio | Full Stack Developer" />
         <meta property="og:description" content="Progetti e competenze di uno sviluppatore full stack." />
       </Helmet>
       <AnimatedBackground />
@@ -46,6 +46,8 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-24">
           <FadeIn className="md:w-1/2" direction="left">
+            {/* H1 unico per SEO (nascosto visivamente, accessibile agli screen reader) */}
+            <h1 className="sr-only">Fabiano - Portfolio | Full Stack Developer</h1>
             <div className="inline-block px-3 py-1 mb-6 text-xs font-medium tracking-wider text-indigo-400 uppercase bg-indigo-900/30 rounded-full">
               Full Stack Developer
             </div>
